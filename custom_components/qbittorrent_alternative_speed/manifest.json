@@ -1,6 +1,6 @@
 {
     "domain": "qbittorrent_alternative_speed",
-    "name": "qbittorrent_alternative_speed",
+    "name": "qBittorrent alternative speed switch",
     "documentation": "https://github.com/JurajNyiri/HomeAssistant-qBitTorrentAlternativeSpeed",
     "dependencies": [],
     "codeowners": ["@JurajNyiri"],
