@@ -4,5 +4,5 @@
     "documentation": "https://github.com/JurajNyiri/HomeAssistant-qBitTorrentAlternativeSpeed",
     "dependencies": [],
     "codeowners": ["@JurajNyiri"],
-    "requirements": ["python-qbittorrent==0.3.1"]
+    "requirements": ["qbittorrent-api==0.4.2"]
   }

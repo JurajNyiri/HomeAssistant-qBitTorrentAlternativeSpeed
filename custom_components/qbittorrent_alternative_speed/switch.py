@@ -1,4 +1,4 @@
-__version__ = "1.1"
+__version__ = "1.2"
 
 import logging
 import voluptuous as vol
@@ -30,17 +30,17 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 class qbittorrent_alternative_speed(SwitchDevice):
 
     def __init__(self, host, username, password, name):
-        from qbittorrent import Client
+        from qbittorrentapi import Client, LoginFailed
         self.host = host
         self.username = username
         self.password = password
         self._name = name
-        self.qb = Client(self.host)
+        self.qb = Client(host=self.host, username=self.username, password=self.password)
         self.signin()
 
     def signin(self):
-        self.qb.login(self.username, self.password)
-        self._state = self.qb.get_alternative_speed_status()
+        self.qb.auth_log_in()
+        self._state = int(self.qb.transfer.speed_limits_mode)
 
     @property
     def name(self):
@@ -48,11 +48,11 @@ class qbittorrent_alternative_speed(SwitchDevice):
 
     @property
     def is_on(self):
-        return self._state
+        return (self._state == 1)
 
     def update(self):
         try:
-            self._state = self.qb.get_alternative_speed_status()
+            self._state = int(self.qb.transfer.speed_limits_mode)
         except:
             self.signin()
         return
@@ -60,9 +60,9 @@ class qbittorrent_alternative_speed(SwitchDevice):
     def turn_on(self):
         self.update()
         if(self._state == 0):
-            self.qb.toggle_alternative_speed()
+            self.qb.transfer.toggle_speed_limits_mode()
 
     def turn_off(self):
         self.update()
         if(self._state == 1):
-            self.qb.toggle_alternative_speed()
+            self.qb.transfer.toggle_speed_limits_mode()
