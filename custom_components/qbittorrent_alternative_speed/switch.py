@@ -1,7 +1,9 @@
-__version__ = "1.2"
+__version__ = "1.3"
 
 import logging
 import voluptuous as vol
+
+from qbittorrentapi import Client
 
 from homeassistant.components.switch import (SwitchDevice, PLATFORM_SCHEMA)
 from homeassistant.const import (CONF_PROTOCOL,CONF_NAME,CONF_PORT, CONF_HOST,CONF_USERNAME,CONF_PASSWORD)
@@ -30,7 +32,6 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
 class qbittorrent_alternative_speed(SwitchDevice):
 
     def __init__(self, host, username, password, name):
-        from qbittorrentapi import Client, LoginFailed
         self.host = host
         self.username = username
         self.password = password
