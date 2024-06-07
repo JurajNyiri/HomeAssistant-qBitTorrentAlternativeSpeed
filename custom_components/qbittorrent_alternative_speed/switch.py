@@ -2,6 +2,7 @@ __version__ = "1.3.1"
 
 import logging
 import voluptuous as vol
+import time
 
 from qbittorrentapi import Client
 
@@ -35,6 +36,8 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     username = config.get(CONF_USERNAME)
     password = config.get(CONF_PASSWORD)
     name = config.get(CONF_NAME)
+
+    time.sleep(30)
 
     add_devices([qbittorrent_alternative_speed(
         host, username, password, name)], True)
